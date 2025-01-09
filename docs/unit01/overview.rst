@@ -12,9 +12,9 @@ will be necessary for the rest of this course.
    :maxdepth: 1
 
    class_intro
+   tacc_onboarding
 
 ..
-   tacc_onboarding
    student_goals
    linux_essentials
    python_refresher

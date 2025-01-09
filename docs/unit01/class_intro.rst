@@ -3,7 +3,7 @@ Class Introduction
 
 | **Welcome to:**
 |
-| COE 332 – Software Engineering & Design, Spring 2025
+| COE 332 - Software Engineering & Design, Spring 2025
 | Department of Aerospace Engineering and Engineering Mechanics
 | The University of Texas at Austin
 
@@ -237,7 +237,7 @@ instructors.
 * Week 7: Advanced Flask
 * Week 8: Databases, Persistence
 * Week 9: Asynchronous Programming, Concurrency, **Midterm Project Due**
-* Week of March 17 – Spring Break
+* Week of March 17 - Spring Break
 * Week 10: Messaging Systems, Queues
 * Week 11: Virtualization: Container Orchestration and Kubernetes
 * Week 12: Virtualization: Container Orchestration and Kubernetes, cont.
