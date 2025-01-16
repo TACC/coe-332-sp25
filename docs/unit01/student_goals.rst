@@ -3,7 +3,7 @@ Student Goals
 
 When asked about their area of concentration, students responded:
 
-* Aerospace Engineering - 14
+* Aerospace Engineering - 15
 * Computational Engineering - 13
 * ML / Data Science - 3
 * Mechanical Engineering - 2
@@ -60,6 +60,7 @@ were edited for typos and readability*):
 * Become more familiar with GitHub and PowerShell
 * Become better at solving real world problems that have a purpose using computer programming
 * Get more comfortable using Linux
+* Getting more comfortable with virtualization and containers for code deployment
 
 **Professional Development**
 
