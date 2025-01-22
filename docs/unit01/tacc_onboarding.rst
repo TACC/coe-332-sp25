@@ -239,7 +239,7 @@ Using your SSH client, please try to log in to the class server **before the
 next class period**:
 
 .. code-block:: console
-   :emphasize-lines: 1-3,35
+   :emphasize-lines: 1-3,35,37
 
    [local]$ ssh username@student-login.tacc.utexas.edu
    (username@student-login.tacc.utexas.edu) Password: 
@@ -277,8 +277,43 @@ next class period**:
    Last login: Thu Dec 19 12:24:02 2024 from 146.6.176.57
    [student-login]$ hostname -f
    student-login.tacc.utexas.edu
+   [student-login]$ whoami
+   username
 
 
 .. note::
 
    In the above, replace 'username' with your TACC username.
+
+After logging in to the class server, try logging in to your individual virtual
+machine (VM), hosted on Jetstream. The login command is the same for everybody.
+It should not ask you for your username or password, but it will take you to
+your own VM.
+
+.. code-block:: console
+   :emphasize-lines: 1,19,21
+
+   [student-login]$ ssh coe332-vm
+   
+   System information as of Wed Jan 22 21:02:24 UTC 2025
+   
+    System load:  0.0                Processes:               136
+    Usage of /:   22.8% of 18.33GB   Users logged in:         0
+    Memory usage: 5%                 IPv4 address for enp3s0: 192.168.4.41
+    Swap usage:   0%
+   
+   ══════════════════════════https://jetstream.status.io/══════════════════════════
+   
+   Overall Jetstream2 Status:   Degraded Performance 
+   
+   Active Status Items:
+    ◦   Issues launching and unshelving Large Memory Instances 
+   
+   ════════════════════════════════════════════════════════════════════════════════
+   Last login: Wed Jan 22 21:02:25 2025 from 129.114.4.186
+   [coe332-vm]$ hostname -f
+   coe332-vm-41.js2local
+   [coe332-vm]$ whoami
+   ubuntu
+
+
