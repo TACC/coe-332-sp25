@@ -240,6 +240,14 @@ repositories where separate individuals are working on different features is the
    GitFlow model
 
 
+Another, simpler model is `Trunk Based Development <https://trunkbaseddevelopment.com/>`_:
+
+.. figure:: ./images/trunk1c.png
+   :width: 500px
+   :align: center
+
+   GitFlow model
+
 
 EXERCISE
 ~~~~~~~~
