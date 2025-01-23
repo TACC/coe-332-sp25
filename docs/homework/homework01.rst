@@ -3,8 +3,8 @@ Homework 01
 
 **Due Date: Thursday, Jan 30, by 11:00am central time**
 
-Bottle Repository
------------------
+Rendezvous with Repository
+--------------------------
 
 Your task is to set up a new Git repository that will be used to turn in 
 your homework assignments for the semester. 
