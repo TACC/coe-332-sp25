@@ -14,6 +14,7 @@ provide a web-accessible interface to their system.
    :caption: Course Schedule:
 
    unit01/overview
+   unit02/overview
 
 
 .. toctree::
@@ -24,10 +25,10 @@ provide a web-accessible interface to their system.
 
 
 
-
 Additional Resources
 --------------------
 
+* Debug Common Issues: `Frequently Encountered Problems <faq/faq.html>`_
 * Slack: https://tacc-learn.slack.com/
 * Class Repo: https://coe-332-sp25.readthedocs.io/
 * Canvas: https://utexas.instructure.com/courses/1409086/
