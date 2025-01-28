@@ -18,7 +18,7 @@ Find solutions to common problems below.
       accordingly
    3. Fix the upstream URL by executing the following in the git repo directory:
 
-   ``git remote set-url origin git@github.com/username/reponame.git'``
+   ``git remote set-url origin git@github.com/username/reponame.git``
 
    Replacing 'username' with your GitHub username and 'reponame' with the name
    of the repo as it appears on GitHub. 
