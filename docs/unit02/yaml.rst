@@ -138,7 +138,7 @@ Read YAML from File
 
 .. warning::
 
-   There is no YAML interpreter in the Python 3.6 standard libary, so we need
+   There is no YAML interpreter in the Python 3 standard libary, so we need
    to install one with pip3:
 
    .. code-block:: console
