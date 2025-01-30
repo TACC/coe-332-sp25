@@ -23,13 +23,20 @@ provide a web-accessible interface to their system.
    :caption: Homeworks:
 
    homework/homework01.rst
+   homework/homework02.rst
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Debug:
+
+   faq/faq.rst
 
 
 
-Additional Resources
---------------------
+Additional Resources:
+---------------------
 
-* Debug Common Issues: `Frequently Encountered Problems <faq/faq.html>`_
 * Slack: https://tacc-learn.slack.com/
 * Class Repo: https://coe-332-sp25.readthedocs.io/
 * Canvas: https://utexas.instructure.com/courses/1409086/
