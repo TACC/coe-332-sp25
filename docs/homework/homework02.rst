@@ -1,7 +1,7 @@
 Homework 02
 ===========
 
-**Due Date: Thursday, Feb 7, by 11:00am central time**
+**Due Date: Thursday, Feb 6, by 11:00am central time**
 
 A Fall of Meteordust
 --------------------
