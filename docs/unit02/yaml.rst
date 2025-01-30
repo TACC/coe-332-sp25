@@ -185,11 +185,11 @@ In a new script create a dictionary object that we can write to a new YAML file.
    data['subjects'].append( {'unit': 1, 'topic': ['linux', 'python3', 'git']} )
    data['subjects'].append( {'unit': 2, 'topic': ['json', 'csv', 'xml', 'yaml']} )
 
-   with open('class.json', 'w') as o:
+   with open('class.yaml', 'w') as o:
        yaml.dump(data, o)
 
 Notice that most of the code in the script above was simply assembling a normal
-Python3 dictionary. The ``json.dump()`` method only requires two arguments - the
+Python3 dictionary. The ``yaml.dump()`` method only requires two arguments - the
 object that should be written to file, and the filehandle.
 
 Inspect the output file and paste the contents into an online YAML validator.
