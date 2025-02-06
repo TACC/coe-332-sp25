@@ -279,6 +279,20 @@ Here are some best practices to keep in mind for handling exceptions:
 See the resources below for tips on building more complicated try-except statements.
 
 
+EXERCISE
+~~~~~~~~
+
+Use ``try`` and ``except`` to perform exception handling in the ``compute_average_mass``
+function.
+
+* Handle the error when one of the masses in the original data cannot be converted
+  into a float. Carefully consider how that should be handled. Should you ignore
+  that meteor when you compute the average? Should you treat the value as ``0``?
+  Something else?
+* Handle the error when a user provides a key string that does not exist in the 
+  data structure. I.e., if a user provides the key string ``mass``, but the data contains
+  ``mass (g)``, make the function return a useful error message instead of crashing.
+
 Additional Resources
 --------------------
 

@@ -58,3 +58,13 @@ Find solutions to common problems below.
    of the repo as it appears on GitHub. 
 
 
+.. dropdown:: Cannot login to Jetstream VM
+
+   If you try to ssh to coe332-vm and it gives any sort of error or if it asks
+   you for a password, it is likely that you removed some necessary lines from
+   your ~/.ssh/config on student-login. Contact one of the course instructors
+   and we will restore it for you.
+
+
+
+
