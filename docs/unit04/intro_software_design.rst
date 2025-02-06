@@ -126,3 +126,183 @@ Our goals for COE 332 are to illustrate these design concepts so that you can re
 not just towards the design of distributed systems and/or data analysis, but all kinds of different software.
 While in this course we'll illustrate these principles in the context of distributed systems, they are
 broadly applicable to all large software projects. 
+
+
+Static Analysis Tools Like Pylint
+----------------------------------
+
+Pylint is a tool for statically analyzing your code. It can identify changes you can make to 
+improve the overall quality of your software.
+
+
+Install pylint on the student VM:
+
+.. code-block:: console
+
+  [coe332-vm]$ sudo pip3 install pylint
+
+The basic usage of pylint is from the command line: 
+
+.. code-block:: console
+
+  [coe332-vm]$ pylint /path/to/file
+
+or
+
+.. code-block:: console
+
+  [coe332-vm]$ pylint /path/to/package
+
+
+Let's try this with the ``json`` module and package from the standard library? 
+As an aside, does anyone know how we would find the path to the package? 
+
+.. code-block:: python 
+
+  >>> import json 
+  >>> json.__file__ 
+  --> '/usr/lib/python3.12/json/__init__.py'   
+
+
+We can call pylint on the specific file: 
+
+.. code-block:: console
+
+  [coe332-vm]$ pylint /usr/lib/python3.12/json/__init__.py
+  
+
+or on the entire package: 
+
+.. code-block:: console
+
+  [coe332-vm]$ pylint /usr/lib/python3.12/json
+  
+
+We get output messages like the following: 
+
+.. code-block:: console 
+
+      ************* Module json
+  /usr/lib/python3.12/json/__init__.py:120:0: R0913: Too many arguments (11/5) (too-many-arguments)
+  /usr/lib/python3.12/json/__init__.py:165:8: R0916: Too many boolean expressions in if statement (10/5) (too-many-boolean-expressions)
+  /usr/lib/python3.12/json/__init__.py:183:0: R0913: Too many arguments (10/5) (too-many-arguments)
+  /usr/lib/python3.12/json/__init__.py:227:8: R0916: Too many boolean expressions in if statement (10/5) (too-many-boolean-expressions)
+  /usr/lib/python3.12/json/__init__.py:244:0: C0116: Missing function or method docstring (missing-function-docstring)
+  . . . 
+
+  ------------------------------------------------------------------
+  Your code has been rated at 8.46/10 (previous run: 8.46/10, +0.00)
+
+
+Pylint generates the following Message Types:
+
+* [I]nformational messages that Pylint emits (do not contribute to your analysis score)
+* [R]efactor for a "good practice" metric violation
+* [C]onvention for coding standard violation
+* [W]arning for stylistic problems, or minor programming issues
+* [E]rror for important programming issues (i.e. most probably bug)
+* [F]atal for errors which prevented further processing
+
+
+It also generates a score, at the bottom, and tracks the changes in the score over time. You can 
+also pass ``--reports=y`` to generate a set of metrics, e.g., 
+
+.. code-block:: condole
+
+  pylint /usr/lib/python3.12/json/__init__.py --reports=y
+
+  Report
+  ======
+  65 statements analysed.
+
+  Statistics by type
+  ------------------
+
+  +---------+-------+-----------+-----------+------------+---------+
+  |type     |number |old number |difference |%documented |%badname |
+  +=========+=======+===========+===========+============+=========+
+  |module   |1      |1          |=          |100.00      |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+  |class    |0      |NC         |NC         |0           |0        |
+  +---------+-------+-----------+-----------+------------+---------+
+  |method   |0      |NC         |NC         |0           |0        |
+  +---------+-------+-----------+-----------+------------+---------+
+  |function |5      |5          |=          |80.00       |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+
+  . . . 
+
+.. note:: 
+
+  Pylint and other linters analyze the *implementation* not the design. 
+
+
+Tools For Analyzing Designs 
+----------------------------
+
+Tools for analyzing designs themselves are an active area of computer science and software engineering 
+research. One approach makes use of a *specification language*, a formal language similar to a programming
+language to define the design/specification fo the system. 
+
+TLA+ 
+~~~~
+One particular specification language that has been around for a while but has recently gained some 
+traction in industry is TLA+. To use TLA+, one writes a *specification* of the system being designed. 
+The specification makes use of variables, constants, and functions, similar to a programming language, 
+but it also allows one to define *invariants*, which are mathematically precise statements about 
+the design that should always be true. 
+
+.. code-block:: console 
+
+  # example of a variable 
+  WorkerState == {"-","IDLE", "BUSY","FINISHED", "SHUTDOWN_REQUESTED", "DELETED"}
+  . . . 
+
+  # example of a function; changes state of the design: 
+  ExecuteRecv(msg, a) ==    
+      /\  actorStatus[a]= "READY" \/ actorStatus[a]= "UPDATING_IMAGE"
+      /\  msg.type = "EXECUTE"
+      /\  msg.actor = a
+      /\  tmsg < MaxMessage  
+
+  # example of an invariant; something that should always be true 
+  AllWorkersOfActorUseSameImageVersion == \A a \in Actors: \A x, y \in actorWorkers[a]:
+    currentImageVersionForWorkers[x] = currentImageVersionForWorkers[y]  
+
+TLA+ can then be used to either: 1) explore a fixed (i.e., finite) state space to determine if the 
+invariants hold for all possible state transitions; or 2) furnish mathematical proofs that the invariants 
+hold *for all* values in the state space (which is usually infinite). 
+
+
+Use of TLA+ in AWS
+~~~~~~~~~~~~~~~~~~
+
+AWS has used TLA+ for more than a decade on critical services such as their DynamoDB and S3 services. 
+
+.. figure:: ./images/amazon-formal-methods.png
+    :width: 1000px
+    :align: center
+    :alt: Paper on Amazon's use of TLA+ and other formal methods.
+    
+    Paper on Amazon's use of TLA+ and other formal methods.
+
+Key Insights: 
+
+ * Formal methods find bugs in system designs that cannot be found through any other technique they know of.
+ * Formal methods are surprisingly feasible for mainstream software development and give a good return 
+   on investment.
+ * At Amazon, formal methods are routinely applied to the design of sophisticated real-world software, 
+   including public cloud services.
+
+
+Downsides of TLA+ and Formal Methods 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The primary downsides of using formal method systems like TLA+ are: 
+
+1. Formal Methods systems are complex, usually requiring learning a new language which has a 
+   different flavor from more mainstream languages such as Python, Rust or JavaScript. 
+2. Formal Methods systems require keeping an entirely separate design definition up to date
+   in addition to the actual software. 
+3. Even if one is able to validate the design specification, the actual implementation could 
+   be different. 
