@@ -66,5 +66,62 @@ Find solutions to common problems below.
    and we will restore it for you.
 
 
+.. dropdown:: How do I copy data from my local laptop to coe332-vm?
+
+   Assuming you have a file like 'data.csv' on your local laptop and you want to
+   copy it to coe332-vm. It will require two hops: first copy from laptop to
+   student-login, then from student-login to coe332-vm:
+
+   .. code-block:: console
+
+      [local]$ ls
+      data.csv
+      [local]$ scp data.csv username@student-login.tacc.utexas.edu:~/
+      Password:
+      TACC_Token:
+
+   The file 'data.csv' is now copied to your home directory on student-login,
+   so ssh to student-login and from there copy it to coe332-vm:
+
+   .. code-block:: console
+
+      [local]$ ssh username@student-login.tacc.utexas.edu
+      Password:
+      TACC_Token:
+      [student-login]$ ls
+      data.csv
+      [student-login]$ scp data.csv coe332-vm:~/
+      # no password or token prompt 
 
 
+.. dropdown:: How do I copy an image from coe332-vm to my local laptop?
+
+   Assuming you have a file like 'output.png' on coe332-vm that you want to copy
+   to your local laptop. It will require two hops: first copy from coe332-vm
+   to student-login, then from student-login to your laptop:
+
+   .. code-block:: console
+
+      [coe332-vm]$ pwd
+      /path/where/data/is
+      [coe332-vm]$ ls
+      output.png
+      [coe332-vm]$ logout
+
+      [student-login]$ pwd
+      /home/username
+      [student-login]$ scp coe332-vm:/path/where/data/is/output.png ./
+
+   This will copy 'output.png' from coe332-vm to your home directory on
+   student-login. Next, logout of student-login and copy the file to your 
+   local laptop:
+
+   .. code-block:: console
+
+      [student-login]$ logout
+      [local]$ scp username@student-login.tacc.utexas.edu:~/output.png ./
+      Password:
+      TACC_Token:
+
+
+ 
