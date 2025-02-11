@@ -207,7 +207,7 @@ Pylint generates the following Message Types:
 It also generates a score, at the bottom, and tracks the changes in the score over time. You can 
 also pass ``--reports=y`` to generate a set of metrics, e.g., 
 
-.. code-block:: condole
+.. code-block:: console
 
   pylint /usr/lib/python3.12/json/__init__.py --reports=y
 
