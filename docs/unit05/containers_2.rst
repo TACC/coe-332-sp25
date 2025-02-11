@@ -190,9 +190,9 @@ Install and Test Your Code
 
 At this time, we should make a small edit to the code that will make it a little
 more flexible and more amenable to running in a container. Instead of hard coding
-the filename 'Meteorite_Landings.json' in the script, let's make a slight
+the filename ``Meteorite_Landings.json`` in the script, let's make a slight
 modification so we can pass the filename on the command line. In the script, add
-this line near the top:
+this line near the top of ``ml_data_analysis.py``:
 
 
 .. code-block:: python3
@@ -226,16 +226,16 @@ process. However, we can make it executable and add it to the user's `PATH`.
 .. code-block:: console
 
    root@7ad568453e0b:/# cd /code
-   root@7ad568453e0b:/# chmod +rx ml_data_analysis.py
-   root@7ad568453e0b:/# export PATH=/code:$PATH
+   root@7ad568453e0b:/code# chmod +rx ml_data_analysis.py
+   root@7ad568453e0b:/code# export PATH=/code:$PATH
 
 Now test with the following:
 
 .. code-block:: console
 
-   root@7ad568453e0b:/# cd /home
-   root@7ad568453e0b:/# cp /code/Meteorite_Landings.json .
-   root@7ad568453e0b:/# ml_data_analysis.py Meteorite_Landings.json
+   root@7ad568453e0b:/code# cd /home
+   root@7ad568453e0b:/home# cp /code/Meteorite_Landings.json .
+   root@7ad568453e0b:/home# ml_data_analysis.py Meteorite_Landings.json
    83857.3
    Northern & Eastern
    ...etc

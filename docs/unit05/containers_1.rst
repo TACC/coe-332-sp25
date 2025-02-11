@@ -417,11 +417,11 @@ to use a software application inside an image. Docker allows you to spin up an
 
 .. code-block:: console
 
-   [coe332-vm]$ docker run --rm python whoami
+   [coe332-vm]$ docker run python whoami
    root
-   [coe332-vm]$ docker run --rm python pwd
+   [coe332-vm]$ docker run python pwd
    /
-   [coe332-vm]$ docker run --rm python cat /etc/os-release
+   [coe332-vm]$ docker run python cat /etc/os-release
    PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
    NAME="Debian GNU/Linux"
    VERSION_ID="12"
@@ -431,7 +431,7 @@ to use a software application inside an image. Docker allows you to spin up an
    HOME_URL="https://www.debian.org/"
    SUPPORT_URL="https://www.debian.org/support"
    BUG_REPORT_URL="https://bugs.debian.org/"
-   [coe332-vm]$ docker run -it --rm python
+   [coe332-vm]$ docker run -it python
    Python 3.13.2 (main, Feb  6 2025, 22:37:13) [GCC 12.2.0] on linux
    Type "help", "copyright", "credits" or "license" for more information.
    >>> 
