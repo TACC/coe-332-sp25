@@ -365,7 +365,7 @@ generally takes the form:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker build -t <dockerhubusername>/<code>:<version> .
+   [coe332-vm]$ docker build -t <dockerhubusername>/<code>:<version> ./
 
 The ``-t`` flag is used to name or 'tag' the image with a descriptive name and
 version. Optionally, you can preface the tag with your **Docker Hub username**.
@@ -378,7 +378,7 @@ To build the image, use:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker build -t username/ml_data_analysis:1.0 .
+   [coe332-vm]$ docker build -t username/ml_data_analysis:1.0 ./
 
 .. note::
 
