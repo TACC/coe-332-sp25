@@ -59,7 +59,7 @@ Write a (containerized) Python3 script that does the following:
 
 All of the normal Python3 script best practices apply:
 
-* Write appropriately formatted doc strings for your routes
+* Write appropriately formatted doc strings for your functions
 * Use type annotations where appropriate
 * Organize your code in the same way as the other scripts we have written
 * Write unit tests for all functions (except ``main()``)
@@ -104,7 +104,7 @@ What to Turn In
 ---------------
 
 A sample Git repository may contain the following new files after completing
-homework03:
+homework04:
 
 .. code-block:: text
    :emphasize-lines: 8-12
