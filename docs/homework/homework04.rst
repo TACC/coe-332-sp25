@@ -145,5 +145,6 @@ Additional Resources
 * `Info on State Vectors <https://en.wikipedia.org/wiki/Orbital_state_vectors>`_
 * `Info on Reference Frame <https://en.wikipedia.org/wiki/Earth-centered_inertial>`_
 * `Unit on XML <../unit02/xml.html>`_
+* `Tool for Creating READMEs <https://readme.so/>`_
 * Please find us in the class Slack channel if you have any questions!
 
