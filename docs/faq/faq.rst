@@ -124,4 +124,64 @@ Find solutions to common problems below.
       TACC_Token:
 
 
- 
+.. dropdown:: How do I find the closest time to "now" in a list of epochs?
+
+   The process is fairly straightforward -
+
+   * Find the time right "now" in UTC time zone
+   * Iterate over each epoch in the ISS data
+   * Compare the difference in time between "now" and each epoch
+   * Return the epoch with the minimum difference
+
+   The difficult part is working with time stamps. Python3 has a few libraries
+   to make it easier to work with time data including ``time`` and ``datetime``.
+   Either will work for the above, but here is an example using the ``time``
+   library:
+
+
+   You will need to import the standard library ``time``:
+
+   .. code-block:: python3
+
+      import time
+
+   Find the time right "now" in UTC time zome, and put in a format that is easier
+   to compare to other times:
+
+   .. code-block:: python3
+
+      >>> time.gmtime()
+      time.struct_time(tm_year=2025, tm_mon=2, tm_mday=19, tm_hour=14, tm_min=55, tm_sec=33, tm_wday=2, tm_yday=50, tm_isdst=0)
+      >>> time.mktime(time.gmtime())
+      1739998535.0
+
+   The first method ``gmtime()`` returns the current UTC time as a 'struct_time'
+   object. Then using the ``mktime()`` method, that object can be converted into
+   seconds since the Unix epoch (Jan 1, 1970, 00:00:00 UTC), which is represented
+   as a float and very easy to compare to other time stamps in the same format.
+
+   The next step is to iterate over all the state vectors in the ISS data, pull
+   out the timestamps, convert them to Unix epoch time, and compare them to the
+   time we got above. An example time stamp from the XML data looks like this:
+   ``2025-043T12:16:00.000Z``. Consider the following code for parsing this time
+   stamp:
+
+   .. code-block:: python3
+
+      >>> time.strptime('2025-043T12:16:00.000Z', '%Y-%jT%H:%M:%S.000Z')
+      time.struct_time(tm_year=2025, tm_mon=2, tm_mday=12, tm_hour=12, tm_min=16, tm_sec=0, tm_wday=2, tm_yday=43, tm_isdst=-1)
+      >>> time.mktime(time.strptime('2025-043T12:16:00.000Z', '%Y-%jT%H:%M:%S.000Z'))
+      1739384160.0
+
+   The first method, ``strptime()``, takes two arguments: a string (timestamp), and a
+   format parameter, which uses a combination of directives and characters to
+   extract the time data from the string and convert it into a 'struct_time' object.
+   Then again, we can use the ``mktime()`` method to convert that object to
+   a Unix epoch time stamp. 
+
+   Iterating and finding the minimum difference can be solved using standard
+   programming approaches.
+
+   Find more information about the Python3 ``time`` library
+   `here <https://docs.python.org/3/library/time.html>`_
+
