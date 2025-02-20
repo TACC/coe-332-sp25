@@ -1,7 +1,7 @@
 Homework 05
 ===========
 
-**Due Date: Thursday, Feb 27, by 11:00am central time**
+**Due Date: Tuesday, Mar 4, by 11:00am central time**
 
 The Fountains of Flask
 ----------------------
@@ -15,9 +15,9 @@ called ``homework05``.
 PART 1
 ~~~~~~
 
-Your Flask application will contain the same (or similar) functionality as in
-homework 04, but in this homework each functionality should be accessible by
-a Flask route. The following routes are required:
+Your Flask application will be containerized and have the same (or similar)
+functionality as in homework 04, but in this homework each functionality should
+be accessible by a Flask route. The following routes are required:
 
 +----------------------------------+------------+--------------------------------------------+
 | **Route**                        | **Method** | **What it should do**                      |
@@ -86,7 +86,8 @@ Guidelines to follow for the README are:
 * Instructions on how to access and description of the data set from the original source
   (do not include the data itself in this repository!)
 * Instructions on how to build a container for your code
-* Instructions to deploy your containerized code as a Flask app
+* Instructions to deploy your containerized code as a Flask app (be careful to
+  specify anythin the user needs to know about exposing the correct port)
 * Instructions including specific ``curl`` commands for accessing the routes in
   your app
 * Descriptions of what the output from each route shows / means
