@@ -25,18 +25,19 @@ provide a web-accessible interface to their system.
    :maxdepth: 1
    :caption: Homeworks:
 
-   homework/homework01.rst
-   homework/homework02.rst
-   homework/homework03.rst
-   homework/homework04.rst
-   homework/homework05.rst
+   homework/homework01
+   homework/homework02
+   homework/homework03
+   homework/homework04
+   homework/homework05
+   homework/midterm
 
 
 .. toctree::
    :maxdepth: 1
    :caption: Debug:
 
-   faq/faq.rst
+   faq/faq
 
 
 
