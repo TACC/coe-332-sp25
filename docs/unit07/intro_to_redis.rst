@@ -168,6 +168,36 @@ There are a few reasons for this choice:
 * Redis can also easily be used as a task queue, which we will make use of in the asynchronous
   programming unit.
 
+**In a Nutshell**
+
+When to use SQL
+
+* Structured Data with Clear Relationships
+	If your data has a fixed schema (tables with columns and rows) and relationships between tables (foreign keys), SQL is great.
+* Transactions are Critical
+	If you need strong consistency and ACID compliance (Atomicity, Consistency, Isolation, Durability), SQL databases like PostgreSQL or MySQL are the go-to.
+* Data Integrity Matters a Lot
+	When you need constraints (like unique values, foreign key enforcement, or type checks) SQL databases shine.
+* Analytics and Complex Queries
+	SQL is excellent when you need to join tables, filter, aggregate, or run complex queries across datasets.
+* Standardized Reporting
+	If your business relies heavily on structured reporting and analysis, SQL’s mature querying (like GROUP BY, JOIN, etc.) fits well.
+
+When to use NoSQL
+
+* Flexible or Evolving Schema
+	If your data structure changes often (new fields, nested data, etc.), NoSQL (like MongoDB or DynamoDB) is more forgiving.
+* Massive Scale with Simple Queries
+	If you have very large amounts of data and are optimizing for speed over complex querying, NoSQL (especially key-value or document stores) is often faster.
+* High Throughput, Low Latency Needs
+	For systems like caching, user sessions, or event logging, NoSQL can handle quick reads/writes with ease.
+* Unstructured or Semi-Structured Data
+	Documents, JSON blobs, logs, and sensor data are often a better fit for document or column-family stores than rigid tables.
+* Horizontal Scaling
+	NoSQL databases are typically designed for easier horizontal scaling (sharding/partitioning across servers) compared to SQL.
+* Big Data & Distributed Systems
+	If you’re building something like a recommendation engine, analytics pipeline, or IoT platform, NoSQL can shine.
+
 
 Redis
 -----
