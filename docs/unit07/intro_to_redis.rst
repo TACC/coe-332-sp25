@@ -179,7 +179,7 @@ advanced features including:
 .. note::
 
    Before going any further, let's play around with Redis a little bit in a browser:
-   `https://try.redis.io/ <https://try.redis.io/>`_
+   `https://redis.io/try-free/ <https://redis.io/try-free/>`_
    Try the commands ``SET``, ``GET``, ``HSET``, ``HGET``, ``KEYS``, ``HKEYS``
 
 
