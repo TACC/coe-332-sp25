@@ -198,6 +198,11 @@ When to use NoSQL
 * Big Data & Distributed Systems
 	If you’re building something like a recommendation engine, analytics pipeline, or IoT platform, NoSQL can shine.
 
+Quick Rule of Thumb
+
+If you need...
+* Strong consistency + relationships:	SQL
+* High flexibility + scalability:	NoSQL
 
 Redis
 -----
