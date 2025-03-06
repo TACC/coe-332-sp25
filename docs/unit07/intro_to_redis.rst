@@ -506,7 +506,8 @@ If needed, you can download the JSON file with the following command:
 
 .. code-block:: console
 
-  $ wget https://github.com/TACC/coe-332-sp25/blob/main/docs/unit02/sample-data/Meteorite_Landings.json
+  $ wget https://raw.githubusercontent.com/TACC/coe-332-sp25/refs/heads/main/docs/unit02/sample-data/Meteorite_Landings.json
+
 
 EXERCISE 2
 ~~~~~~~~~~
