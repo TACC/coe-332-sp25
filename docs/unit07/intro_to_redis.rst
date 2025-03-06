@@ -308,7 +308,7 @@ that we each need to pull from Docker Hub:
    # start the Redis server on the command line:
    [user-vm]$ docker run -p 6379:6379 redis:7
    1:C 27 Feb 2024 03:53:38.154 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-   1:C 27 Feb 2024 03:53:38.154 * Redis version=7.2.4, bits=64, commit=00000000, modified=0, pid=1, just started
+   1:C 27 Feb 2024 03:53:38.154 * Redis version=7.4.2, bits=64, commit=00000000, modified=0, pid=1, just started
    1:C 27 Feb 2024 03:53:38.154 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
    1:M 27 Feb 2024 03:53:38.154 * monotonic clock: POSIX clock_gettime
    1:M 27 Feb 2024 03:53:38.155 * Running mode=standalone, port=6379.
@@ -325,7 +325,7 @@ scripts.
 .. warning::
 
    Pause for a minute to think about why we are running ``redis:7``. In the terminal output, it
-   looks like the actual version of Redis is ``version=7.2.4``. What do you need to know about
+   looks like the actual version of Redis is ``version=7.4.2``. What do you need to know about
    `semantic versioning <https://semver.org/>`_ in order to future-proof your code?
 
 
