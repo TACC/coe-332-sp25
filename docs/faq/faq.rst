@@ -185,3 +185,83 @@ Find solutions to common problems below.
    Find more information about the Python3 ``time`` library
    `here <https://docs.python.org/3/library/time.html>`_
 
+
+.. dropdown:: How do I transform state vectors to latitude, longitude, and altitude?
+
+   Check out the example code block below. Assumes you have a single state vector
+   ``sv`` as input following a specific schema. You may need to modify a few of the
+   lines below to make sure you are grabbing the right x, y, and z values from the
+   state vector.
+
+   If you use this approach, don't forget to add ``astropy`` to your list of
+   requirements.
+
+   .. code-block:: python3
+   
+      import time
+      from astropy import coordinates
+      from astropy import units
+      from astropy.time import Time
+      
+      def compute_location_astropy(sv):
+          x = float(sv['X']['#text'])
+          y = float(sv['Y']['#text'])
+          z = float(sv['Z']['#text'])
+      
+          # assumes epoch is in format '2024-067T08:28:00.000Z'
+          this_epoch=time.strftime('%Y-%m-%d %H:%m:%S', time.strptime(sv['EPOCH'][:-5], '%Y-%jT%H:%M:%S'))
+          
+          cartrep = coordinates.CartesianRepresentation([x, y, z], unit=units.km)
+          gcrs = coordinates.GCRS(cartrep, obstime=this_epoch) 
+          itrs = gcrs.transform_to(coordinates.ITRS(obstime=this_epoch))
+          loc = coordinates.EarthLocation(*itrs.cartesian.xyz)
+          
+          return loc.lat.value, loc.lon.value, loc.height.value
+
+
+.. dropdown:: How do I find the nearest geolocation given latitude and longitude?
+
+   Once you have latitude and longitude, you can try to plug it in to the ``GeoPy``
+   python library (which needs to be pip installed). Here are a few key lines of
+   code you could use:
+
+   .. code-block:: python3
+
+      from geopy.geocoders import Nominatim
+      geocoder = Nominatim(user_agent='iss_tracker')
+      geoloc = geocoder.reverse((lat, lon), zoom=15, language='en')
+
+   Try playing around with different ``zoom`` levels. When the ISS is over the
+   ocean, it will usually return ``None`` instead of a geolocation unless you
+   zoom way out. You will need to also play around with the ``geoloc`` object
+   to figure out how to access the information inside. Once you do, you can
+   start to associate places with the latitude and longitude values:
+
+   .. code-block:: json
+
+      {
+        "lat": -0.718275860472717,
+        "actual_lat": "-1.8219",
+        "lon": 106.88329187186568,
+        "actual_lon": "105.4535",
+        "alt": 422.2579992310011,
+        "epoch_timestamp": "03/05/2024, 01:36:00",
+        "now_timestamp": "03/04/2024, 19:35:59",
+        "geoloc": "Bangka-Belitung Islands, Sumatra, Indonesia"
+      }
+
+   I recommend checking a site like this one to confirm whether this meets your
+   expectations:
+
+   https://www.n2yo.com/?s=90027
+
+   Geopy supports a bunch of other different geocoders. Nominatim is not very good,
+   but it is free and does not require setting up an API key. Some others are very
+   powerful and can provide very detailed location information. However, many of
+   the services require API keys, which you would need to sign up for / obtain
+   from a third party. I chose Nominatim when I did this just because it was free
+   and easy. You can chose others, though. More details here: 
+
+   https://geopy.readthedocs.io/en/stable/#module-geopy.geocoders
+
+
