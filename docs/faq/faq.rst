@@ -265,3 +265,29 @@ Find solutions to common problems below.
    https://geopy.readthedocs.io/en/stable/#module-geopy.geocoders
 
 
+
+.. dropdown:: ERROR: Error during data fetching: MISCONF Redis is configured to save RDB snapshots, but it's currently unable to persist to disk
+
+   This is a very common error when working with Redis databases. The error 
+   indicates that Redis is trying to save a snapshot of the database to disk, 
+   usually to a folder called "/data", but it is unable to do so. The most 
+   frequent cause of this problem is that the Docker daemon created that folder
+   for you. If Docker makes that folder for you, it inherits improper permissions
+   that make it difficult to work with. The solution is to remove the bad folder
+   that Docker made, and make a new folder yourself with the correct permissions.
+
+   Navigate to where your code is, listing the files to confirm that there is
+   a folder called “data”, and remove the folder like this:
+
+   .. code-block:: console
+
+      sudo rm -rf data
+
+   Then remake the folder yourself. This way it will have proper permissions:
+   
+   .. code-block:: console
+
+      mkdir data
+
+   Re-launch your containers and then Redis should be able to write to the database.
+   
