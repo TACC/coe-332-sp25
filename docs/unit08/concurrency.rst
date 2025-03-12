@@ -9,8 +9,9 @@ By the end of this module, students should be able to:
     flask-based API system.
   * Utilize Python in-memory queues as well as the hotqueue library to work with queues in Redis.
   * **Design Principles.** The integration of a queue into our APIs will demonstrate the principle
-    of abstraction (removing the laborious and time consuming functionality of our code from our API
-    interface).
+    of *abstraction*, as the queue data structure provides a relatively simplistic structure 
+    that supports a variety of tasks. We also make use of *modularity*, as the code we develop will
+    encapsulate queue-related functionality into specific Python functions. 
 
 
 Motivation
