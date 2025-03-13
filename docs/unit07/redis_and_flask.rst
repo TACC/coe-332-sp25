@@ -29,7 +29,7 @@ with the Redis server on that port.
 .. code-block:: console
 
    # start the Redis server on the command line:
-   [user-vm]$ docker run -p 6379:6379 redis:7
+   [coe332-vm]$ docker run -p 6379:6379 redis:7
    1:C 27 Feb 2024 03:53:38.154 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
    1:C 27 Feb 2024 03:53:38.154 * Redis version=7.2.4, bits=64, commit=00000000, modified=0, pid=1, just started
    1:C 27 Feb 2024 03:53:38.154 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
@@ -47,7 +47,7 @@ start it in the background (detached or daemon mode). You can do that by adding 
 
 .. code-block:: console
 
-   [user-vm]$ docker run -d -p 6379:6379 redis:7
+   [coe332-vm]$ docker run -d -p 6379:6379 redis:7
    3a28cb265d5e09747c64a87f904f8184bd8105270b8a765e1e82f0fe0db82a9e
 
 At this point, Redis is running and available from your host. Double check this is 
@@ -87,10 +87,10 @@ our Redis container and starting a new one.
 .. code-block:: console
 
    # shut down the existing redis container using the name you gave it
-   [user-vm]$ docker rm -f <redis container id>
+   [coe332-vm]$ docker rm -f <redis container id>
 
    # start a new redis container
-   [user-vm]$ docker run -d -p 6379:6379 redis:7
+   [coe332-vm]$ docker run -d -p 6379:6379 redis:7
 
 
 Now go back into the Python shell and connect to Redis:
@@ -128,7 +128,7 @@ is
 
 .. code-block:: console
 
-    [user-vm]$ docker run -v <host_path>:<container_path>:<mode> ...*additional docker run args*...
+    [coe332-vm]$ docker run -v <host_path>:<container_path>:<mode> ...*additional docker run args*...
 
 where:
 
@@ -185,7 +185,7 @@ override either the command or the entrypoint that may have been specified in th
 
 .. code-block:: console
 
-   [user-vm]$ docker run <options> <image> <string>
+   [coe332-vm]$ docker run <options> <image> <string>
 
 will override the ``command`` specified in the image, but the original entrypoint set for the image
 will still be used.
@@ -206,7 +206,7 @@ If we build and tag this image as ``test/ls``, then:
 .. code-block:: console
 
   # run with the default command, equivalent to "ls -l"
-  [user-vm]$ docker run --rm -it test/ls
+  [coe332-vm]$ docker run --rm -it test/ls
   total 48
   lrwxrwxrwx   1 root root    7 Jan  5 16:47 bin -> usr/bin
   drwxr-xr-x   2 root root 4096 Apr 15  2020 boot
@@ -216,13 +216,13 @@ If we build and tag this image as ``test/ls``, then:
   . . .
 
   # override the command, but keep the entrypoint; equivalent to running "ls -a" (note the lack of "-l")
-  [user-vm]$ docker run --rm -it test/ls -a
+  [coe332-vm]$ docker run --rm -it test/ls -a
   .   .dockerenv	boot  etc   lib    lib64   media  opt	root  sbin  sys  usr
   ..  bin		dev   home  lib32  libx32  mnt	  proc	run   srv   tmp  var
 
 
   # override the command, specifying a different directory
-  [user-vm]$ docker run --rm -it test/ls -la /root 
+  [coe332-vm]$ docker run --rm -it test/ls -la /root 
   total 16
   drwx------ 2 root root 4096 Jan  5 16:50 .
   drwxr-xr-x 1 root root 4096 Mar 23 18:38 ..
@@ -241,7 +241,7 @@ by simply appending it to the end of the ``docker run`` command; that is,
 
 .. code-block:: console
 
-  [user-vm]$ docker run <options> redis:7 --save <options>
+  [coe332-vm]$ docker run <options> redis:7 --save <options>
 
 
 Bring it All Together for a Complete Solution
@@ -257,7 +257,7 @@ Putting all of this together, we can update the way we run our Redis container a
 
 .. code-block:: console
 
-   [user-vm]$ docker run -d -p 6379:6379 -v </path/on/host>:/data redis:7 --save 1 1
+   [coe332-vm]$ docker run -d -p 6379:6379 -v </path/on/host>:/data redis:7 --save 1 1
 
 .. tip::
 
@@ -267,7 +267,7 @@ For example, I might use:
 
 .. code-block:: console
 
-  [user-vm]$ docker run -d -p 6379:6379 -v $PWD/data:/data:rw redis:7 --save 1 1
+  [coe332-vm]$ docker run -d -p 6379:6379 -v $PWD/data:/data:rw redis:7 --save 1 1
 
 Now, Redis should be periodically writing all of its state to the ``data`` directory. You should see a
 file called ``dump.rdb`` in the directory because we are using the default persistence mechanism
@@ -386,11 +386,11 @@ Given the above, try launching both services using the following command:
 
 .. code-block:: console
 
-    [user-vm]$ docker-compose up -d
+    [coe332-vm]$ docker-compose up -d
     Creating network "redis_default" with the default driver                                                                               
     Creating redis_flask-app_1 ... done                                                                                                    
     Creating redis_redis-db_1  ... done     
-    [user-vm]$ docker ps -a
+    [coe332-vm]$ docker ps -a
     CONTAINER ID   IMAGE                       COMMAND                  CREATED         STATUS         PORTS                                       NAMES
     d266fbd99e4c   redis:7                     "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp   redis_redis-db_1
     193f057687a8   username/ml_flask_app:1.0   "python3 /ml_flask_a…"   3 seconds ago   Up 2 seconds   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   redis_flask-app_1
@@ -399,13 +399,13 @@ You should see the containers running. When you are ready to kill the services:
 
 .. code-block:: console
 
-   [user-vm]$ docker-compose down
+   [coe332-vm]$ docker-compose down
    Stopping redis_redis-db_1  ... done
    Stopping redis_flask-app_1 ... done
    Removing redis_redis-db_1  ... done             
    Removing redis_flask-app_1 ... done                                                                                                    
    Removing network redis_default         
-   [user-vm]$ docker ps -a
+   [coe332-vm]$ docker ps -a
 
 
 EXERCISE 3

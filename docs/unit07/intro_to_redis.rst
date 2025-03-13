@@ -306,7 +306,7 @@ that we each need to pull from Docker Hub:
 .. code-block:: console
 
    # start the Redis server on the command line:
-   [user-vm]$ docker run -p 6379:6379 redis:7
+   [coe332-vm]$ docker run -p 6379:6379 redis:7
    1:C 27 Feb 2024 03:53:38.154 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
    1:C 27 Feb 2024 03:53:38.154 * Redis version=7.4.2, bits=64, commit=00000000, modified=0, pid=1, just started
    1:C 27 Feb 2024 03:53:38.154 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
@@ -334,14 +334,14 @@ Python library:
 
 .. code-block:: console
 
-   [user-vm]$ pip3 install --user redis
+   [coe332-vm]$ pip3 install --user redis
 
 
 Then open up an interactive Python interpreter to connect to the server:
 
 .. code-block:: console
 
-   [user-vm]$ python3
+   [coe332-vm]$ python3
    Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
    Type "help", "copyright", "credits" or "license" for more information.
    >>>
