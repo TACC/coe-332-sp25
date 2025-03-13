@@ -459,6 +459,6 @@ Additional Resources
 
 * `Redis Docs <https://redis.io/documentation>`_
 * `Redis Python Library <https://redis-py.readthedocs.io/en/stable/>`_
-* `Try Redis in a Browser <https://try.redis.io/>`_
+* `Try Redis in a Browser <https://redis.io/try-free/>`_
 * `Semantic Versioning <https://semver.org/>`_
 

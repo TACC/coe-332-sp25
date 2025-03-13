@@ -159,25 +159,30 @@ Comparing SQL and NoSQL is an apples to oranges comparison.
   the HTML of all websites on the internet or even all tweets ever published.
 
 
-ACID?
+**ACID Properties**
 
-ACID Explained
+A - Atomicity	"All or Nothing" — the entire transaction succeeds or the whole thing is rolled back.
+Transferring money between bank accounts — either both debit & credit succeed, or neither happens.
 
-A - Atomicity	"All or Nothing" — the entire transaction succeeds or the whole thing is rolled back.	Transferring money between bank accounts — either both debit & credit succeed, or neither happens.
+C - Consistency	Data must always move the database from one valid state to another. A transaction
+can't leave the database in an invalid state.	After a money transfer, both account balances should
+reflect the right amounts — no negative balances unless the system allows overdrafts.
 
-C - Consistency	Data must always move the database from one valid state to another. A transaction can't leave the database in an invalid state.	After a money transfer, both account balances should reflect the right amounts — no negative balances unless the system allows overdrafts.
+I - Isolation	Transactions should not interfere with each other, even if they happen at the same time.
+If two people try to buy the last ticket for a concert at the same time, only one should succeed —
+transactions shouldn't "step on each other's toes."
 
-I - Isolation	Transactions should not interfere with each other, even if they happen at the same time.	If two people try to buy the last ticket for a concert at the same time, only one should succeed — transactions shouldn't "step on each other's toes."
+D - Durability	Once a transaction is committed, it's permanent, even if there's a crash or power loss.	
+After you confirm a hotel booking, that reservation is safely stored — even if the server crashes right 
+after.
 
-D - Durability	Once a transaction is committed, it’s permanent, even if there’s a crash or power loss.	After you confirm a hotel booking, that reservation is safely stored — even if the server crashes right after.
 
+**Quick Analogy**
 
-Quick Analogy
+Imagine you're ordering food online — the ACID properties make sure:
 
-Imagine you’re ordering food online — the ACID properties make sure:
-
-* Atomicity: Your payment and order both succeed, or neither does (you aren’t charged without an order placed).
-* Consistency: The restaurant’s inventory reflects your order — if you order a burger, the burger count goes down by 1.
+* Atomicity: Your payment and order both succeed, or neither does (you aren't charged without an order placed).
+* Consistency: The restaurant's inventory reflects your order — if you order a burger, the burger count goes down by 1.
 * Isolation: If two people order the last burger at the same time, only one actually gets it.
 * Durability: Even if the system crashes, your order stays confirmed.
 
@@ -205,7 +210,7 @@ When to use SQL
 * Analytics and Complex Queries
 	SQL is excellent when you need to join tables, filter, aggregate, or run complex queries across datasets.
 * Standardized Reporting
-	If your business relies heavily on structured reporting and analysis, SQL’s mature querying (like GROUP BY, JOIN, etc.) fits well.
+	If your business relies heavily on structured reporting and analysis, SQL's mature querying (like GROUP BY, JOIN, etc.) fits well.
 
 When to use NoSQL
 
@@ -220,7 +225,7 @@ When to use NoSQL
 * Horizontal Scaling
 	NoSQL databases are typically designed for easier horizontal scaling (sharding/partitioning across servers) compared to SQL.
 * Big Data & Distributed Systems
-	If you’re building something like a recommendation engine, analytics pipeline, or IoT platform, NoSQL can shine.
+	If you're building something like a recommendation engine, analytics pipeline, or IoT platform, NoSQL can shine.
 
 Quick Rule of Thumb
 
@@ -532,5 +537,5 @@ Additional Resources
 
 * `Redis Docs <https://redis.io/documentation>`_
 * `Redis Python Library <https://redis-py.readthedocs.io/en/stable/>`_
-* `Try Redis in a Browser <https://try.redis.io/>`_
+* `Try Redis in a Browser <https://redis.io/try-free/>`_
 * `Semantic Versioning <https://semver.org/>`_
