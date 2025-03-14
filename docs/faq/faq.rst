@@ -290,3 +290,27 @@ Find solutions to common problems below.
       mkdir data
 
    Re-launch your containers and then Redis should be able to write to the database.
+
+.. dropdown:: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+   We set up docker on your Jetstream VMs, so you should not need to do
+   any other installations or configurations. But if you are getting an 
+   error like this:
+
+   .. code-block:: console
+      
+      ubuntu@coe332-vm-1:~$ docker ps -a
+      Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+   Then try running this command:
+
+   .. code-block:: console
+
+      ubuntu@coe332-vm-1:~$ sudo systemctl restart docker
+
+   If that command doesn't fix the Docker daemon, then ping one of the instructors
+   in slack.
+   
+   Note: Docker is not installed on ``student-login`` and won't work there. It
+   is only available on the Jetstream VMs.
+
