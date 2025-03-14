@@ -209,7 +209,7 @@ Find solutions to common problems below.
           z = float(sv['Z']['#text'])
       
           # assumes epoch is in format '2024-067T08:28:00.000Z'
-          this_epoch=time.strftime('%Y-%m-%d %H:%m:%S', time.strptime(sv['EPOCH'][:-5], '%Y-%jT%H:%M:%S'))
+          this_epoch=time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(sv['EPOCH'][:-5], '%Y-%jT%H:%M:%S'))
           
           cartrep = coordinates.CartesianRepresentation([x, y, z], unit=units.km)
           gcrs = coordinates.GCRS(cartrep, obstime=this_epoch) 
@@ -290,4 +290,3 @@ Find solutions to common problems below.
       mkdir data
 
    Re-launch your containers and then Redis should be able to write to the database.
-   
