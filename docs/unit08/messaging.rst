@@ -14,6 +14,8 @@ students should be able to:
   * Explain the general approach to organizing Python code into different modules and describe how to
     do this for the flask-based API system we are building. 
   * Implement good code organization practices including denoting objects as public or private. 
+  * **Design Principles.** The implementation of a task queue incorporates the principle of abstraction, while 
+    organizing code into public and private objects demonstrates the use of modularity and encapsulation. 
 
 
 Task Queues
