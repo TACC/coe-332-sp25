@@ -81,12 +81,115 @@ Complete the following on your JetStream VM.
   7. Back in the first terminal, check the length of the queue; add some more objects to the queue.
   8. Confirm the newly added objects are "instantaneously" printed to the screen back in the second terminal.
 
+A Word on Container Networking 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We'd like to use containers to orchestrate the components of our task queue system. We'll have 
+two Python containers representing the producer and consumer components, and we'll have an additional 
+Redis container for persisting the queue data. To get this to work, we'll need to address the Redis 
+server, running in the last container, from our other two Python containers. To do that, we'll need 
+to understand a bit about container networking. 
+
+Docker isolates individual containers at the network level, meaning that each container is uniquely 
+addressable with an IP address and a full complement of ports (0-65535). We can see the IP address 
+of an individual container using the ``docker inspect <container>`` command:
+
+.. code-block:: console
+
+  [user-vm]$ docker inspect 089c14804c9b
+
+  [
+      {
+          "Id": "089c14804c9bb5a26ec01b6df2a23916a7be83e89326bc5818688097b22b50b5",
+          "Created": "2025-03-25T01:24:31.150990988Z",
+          "Path": "sleep",
+          "Args": [
+              "999999"
+          ],
+          "State": {
+    . . .   
+
+The output is a JSON-formatted documented with many details about the container. At the bottom 
+is a stanza called ``NetworkSettings`` which contains a stanza ``Networks`` with an entry for 
+each network that the container has been connected to. For example: 
+
+
+.. code-block:: console
+  :emphasize-lines: 10
+
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "02:42:ac:11:00:02",
+                    "NetworkID": "6200fb8b8e549f9421dc04bce67cdeca2dead6b78651c8ee92061fc22fb77c56",
+                    "EndpointID": "0752c7d43fd567bcf5f402048f95c73a96874904188640e44c7bcadb462eb2c7",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DriverOpts": null,
+                    "DNSNames": null
+                }
+
+The output shows that the container is connected to a single network called ``bridge`` and the 
+container has an IP address of ``172.17.0.2`` on this network.
+
+So what is the ``bridge`` network anyway?
+To keep containerized services secure, by default, Docker utilizes a virtualized network, called a 
+*bridge network*, also referred to as the *docker0* bridge. Our container's IP address resides on 
+this bridge network, and, by default, this network is not exposed outside of our host VM. In other
+words, the ``172.17.0.2`` IP address is only accessible from our VM. 
+
+We can see this interface using the Linux command ``ip addr``. This command outputs every 
+network interface available on the host and its associated IP address. 
+
+.. code-block:: console
+
+  [user-vm]$ ip addr 
+
+  1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+      inet 127.0.0.1/8 scope host lo
+        valid_lft forever preferred_lft forever
+      inet6 ::1/128 scope host noprefixroute 
+        valid_lft forever preferred_lft forever
+  . . .
+
+  3: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 02:42:67:98:46:a0 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:67ff:fe98:46a0/64 scope link 
+       valid_lft forever preferred_lft forever
+  . . .
+
+This output shows that the docker0 bridge is configured with the IP address ``172.17.0.1``. 
+
+When we publish a port on a container, for example, using the ``-p`` flag to the ``docker run`` 
+command, we are asking Docker to connect the port on our container's IP address on the bridge network 
+to the port on the docker0 bridge itself, as well as to other host network interfaces 
+(e.g., the eth0, enp3s0, etc.).
+This means that, when publishing a container port, one can use either the container IP address 
+or the docker0 address (or another host network IP) to connect to the port. The benefit of using 
+the docker0 address is that it is stable, while the container IP address changes each time 
+we start the container. 
+
+We underscore that this Docker networking is typically restricted to the individual server (e.g., VM)
+running Docker. 
+When we discuss Kubernetes, we will further expand upon these ideas to allow ports on containerized 
+services to be connected to and from other containers running across a cluster of machines. 
+
 
 EXERCISE 2
 ~~~~~~~~~~
 
-Repeat the above steps, but this time orchestrate three containers together using ``docker-compose``: a Redis
-container and two other Python containers which may simulate, for example, a Flask app and a worker. 
+Repeat the steps in Exercise 1, but this time orchestrate three containers together 
+using ``docker-compose``: a Redis container and two other Python containers which may simulate, 
+for example, a Flask app and a worker. 
 
 .. note:: 
 
