@@ -178,9 +178,15 @@ or the docker0 address (or another host network IP) to connect to the port. The 
 the docker0 address is that it is stable, while the container IP address changes each time 
 we start the container. 
 
-We underscore that this Docker networking is typically restricted to the individual server (e.g., VM)
-running Docker. 
-When we discuss Kubernetes, we will further expand upon these ideas to allow ports on containerized 
+**Services in Docker Compose.** Finally, in the case where we have defined services using docker-compose, 
+Docker takes one more step and configures the service name to map to the IP address of the container within
+other containerized services defined within the compose file. Note that this is only for those services defined 
+within the compose file, and so attempting to use the service name on the host or within other containers 
+will fail to resolve. 
+
+
+Finally, we underscore that all of this Docker networking is typically restricted to the individual server (e.g., VM)
+running Docker. When we discuss Kubernetes, we will further expand upon these ideas to allow ports on containerized 
 services to be connected to and from other containers running across a cluster of machines. 
 
 
