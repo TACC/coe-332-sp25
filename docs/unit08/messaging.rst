@@ -88,6 +88,12 @@ EXERCISE 2
 Repeat the above steps, but this time orchestrate three containers together using ``docker-compose``: a Redis
 container and two other Python containers which may simulate, for example, a Flask app and a worker. 
 
+.. note:: 
+
+  Before starting the containers defined in the ``docker-compose.yml`` file, make sure to create a directory 
+  called ``data`` in the current directory. 
+
+
 .. code-block:: yaml
 
    ---
