@@ -188,7 +188,8 @@ homework 06:
    │   ├── Dockerfile
    │   ├── docker-compose.yaml
    │   ├── gene_api.py
-   │   └── README.md
+   │   ├── README.md
+   │   └── requirements.txt
    └── README.md
 
 
