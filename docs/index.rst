@@ -32,6 +32,8 @@ provide a web-accessible interface to their system.
    homework/homework04
    homework/homework05
    homework/midterm
+   homework/homework06
+   homework/final
 
 
 .. toctree::
