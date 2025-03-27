@@ -25,13 +25,14 @@ By the end of this module, students should be able to:
   * Organize code for software system into API, worker, and jobs modules
   * Import the Jobs API into other modules to use for jobs functionality
   * Perform appropriate ``curl`` requests to POST jobs and GET the result of jobs
-
+  * **Design Principles.** The implementation of our Jobs API, comprised of multiple Flask routes, a task queue persisted 
+    in Redis, and a worker program, will demonstrate the use of modularity and encapsulation in software design. 
 
 
 Concurrency in the Jobs API
 ---------------------------
 Recall that our big-picture goal is to add a Jobs endpoint to our Flask system that can process long-running tasks.
-We will implement our Jobs API with concurrency in mind. The goals will be:
+We will implement our Jobs API with concurrency in mind.
 
 The overall architecture will thus be:
 
