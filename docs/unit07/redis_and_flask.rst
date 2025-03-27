@@ -343,8 +343,6 @@ Consider the following update to your Docker compose file from Unit 5:
 .. code-block:: yaml
 
     ---
-    version: "3"
-
     services:
         redis-db:
             image: redis:7
