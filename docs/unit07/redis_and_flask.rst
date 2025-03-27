@@ -374,7 +374,7 @@ specification? Should we provide a context and Dockerfile for Redis?
 
 One slight modification to the Flask app is required to enable container-to-container
 communication over the Docker bridge network. Instead of using an IP address like '127.0.0.1'
-or an alias like 'localhost', use the docker-compose alias for the Redis service,
+or an alias like 'localhost', use the docker compose alias for the Redis service,
 ``redis-db``. Specifically, in your containerized Flask app, establish a Redis client like:
 
 .. code-block:: python3
@@ -386,7 +386,7 @@ Given the above, try launching both services using the following command:
 
 .. code-block:: console
 
-    [coe332-vm]$ docker-compose up -d
+    [coe332-vm]$ docker compose up -d
     Creating network "redis_default" with the default driver                                                                               
     Creating redis_flask-app_1 ... done                                                                                                    
     Creating redis_redis-db_1  ... done     
@@ -399,7 +399,7 @@ You should see the containers running. When you are ready to kill the services:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker-compose down
+   [coe332-vm]$ docker compose down
    Stopping redis_redis-db_1  ... done
    Stopping redis_flask-app_1 ... done
    Removing redis_redis-db_1  ... done             

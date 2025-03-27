@@ -15,7 +15,7 @@ module, students should be able to:
 * Build and run in the background a containerized Flask microservice.
 * Map ports on the Jetstream VM to ports inside a container, and use ``curl`` with the
   the correct ports to make requests to and generate responses from the microservice.
-* Deploy the microservice with docker-compose
+* Deploy the microservice with docker compose
 * **Design Principles:** By combining Flask and Docker, we will see how both contribute to
   the *modularity*, *portability*, *abstraction*, and *generalization* of software (all
   four major design principles).
@@ -324,14 +324,14 @@ options to use entirely depends on the app and the context.
 Running Docker Compose
 ----------------------
 
-To run our Flask application container, we simply use the ``docker-compose up`` 
+To run our Flask application container, we simply use the ``docker compose up`` 
 verb, which will start up all containers defined in the file. Alternatively,
-we could use ``docker-compose run`` and pass the name of a service to run, in this
+we could use ``docker compose run`` and pass the name of a service to run, in this
 case, ``flask-app``:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker-compose up 
+   [coe332-vm]$ docker compose up 
    Creating network "flask-container_default" with the default driver
    Creating flask-helloworld-app ... done
    Attaching to flask-helloworld-app
@@ -346,7 +346,7 @@ case, ``flask-app``:
    flask-helloworld-app |  * Debugger is active!
    flask-helloworld-app |  * Debugger PIN: 109-459-387
 
-Note that ``docker-compose`` starts the container in the foreground and takes over our terminal. If we use 
+Note that ``docker compose`` starts the container in the foreground and takes over our terminal. If we use 
 ``Ctrl+C`` we will stop the container. We can see confirm that the container is stopped using the
 ``docker ps -a`` command:
 
@@ -361,7 +361,7 @@ To start the service in the background, use the ``-d`` flag:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker-compose up -d
+   [coe332-vm]$ docker compose up -d
 
 Once the service is running, perform some curl commands to test the running Flask
 app before stopping the service with:
@@ -369,7 +369,7 @@ app before stopping the service with:
 
 .. code-block:: console
 
-   [coe332-vm]$ docker-compose down
+   [coe332-vm]$ docker compose down
 
 
 
@@ -379,17 +379,17 @@ Essential Docker Compose Command Summary
 +------------------------+------------------------------------------------+
 | Command                | Usage                                          |
 +========================+================================================+
-| docker-compose version | Print version information                      |
+| docker compose version | Print version information                      |
 +------------------------+------------------------------------------------+
-| docker-compose config  | Validate docker-compose.yml syntax             |
+| docker compose config  | Validate docker-compose.yml syntax             |
 +------------------------+------------------------------------------------+
-| docker-compose up      | Spin up all services                           |
+| docker compose up      | Spin up all services                           |
 +------------------------+------------------------------------------------+
-| docker-compose down    | Tear down all services                         |
+| docker compose down    | Tear down all services                         |
 +------------------------+------------------------------------------------+
-| docker-compose build   | Build the images listed in the YAML file       |
+| docker compose build   | Build the images listed in the YAML file       |
 +------------------------+------------------------------------------------+
-| docker-compose run     | Run a container as defined in the YAML file    |
+| docker compose run     | Run a container as defined in the YAML file    |
 +------------------------+------------------------------------------------+
 
 
