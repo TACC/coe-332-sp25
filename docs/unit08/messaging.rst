@@ -96,7 +96,7 @@ of an individual container using the ``docker inspect <container>`` command:
 
 .. code-block:: console
 
-  [user-vm]$ docker inspect 089c14804c9b
+  [coe332-vm]$ docker inspect 089c14804c9b
 
   [
       {
@@ -149,7 +149,7 @@ network interface available on the host and its associated IP address.
 
 .. code-block:: console
 
-  [user-vm]$ ip addr 
+  [coe332-vm]$ ip addr 
 
   1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
       link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -230,7 +230,7 @@ the command:
 
 .. code-block:: console
 
-   [user-vm]$ docker-compose up -d
+   [coe332-vm]$ docker-compose up -d
    Creating network "messaging_default" with the default driver
    Creating messaging_redis-db_1 ... done
    Creating messaging_python2_1  ... done
@@ -243,13 +243,13 @@ to create two new shells inside the running containers:
 .. code-block:: console
 
    # From terminal 1
-   [user-vm]$ docker exec -it messaging_python1_1 /bin/bash
+   [coe332-vm]$ docker exec -it messaging_python1_1 /bin/bash
    root@ba734c20dfe3:/#
 
 .. code-block:: console
 
    # From terminal 2
-   [user-vm]$ docker exec -it messaging_python2_1 /bin/bash
+   [coe332-vm]$ docker exec -it messaging_python2_1 /bin/bash
    root@22ca40c5cf18:/# 
 
 
@@ -262,7 +262,7 @@ When finished with the exercise, clean up your running containers by doing:
 
 .. code-block:: console
 
-   [user-vm]$ docker-compose down
+   [coe332-vm]$ docker-compose down
    Stopping messaging_python2_1  ... done
    Stopping messaging_python1_1  ... done
    Stopping messaging_redis-db_1 ... done

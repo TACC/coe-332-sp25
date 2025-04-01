@@ -279,7 +279,7 @@ terminal.
 
 .. code-block:: console
 
-   [user-vm]$ docker run -p 6379:6379 redis:7
+   [coe332-vm]$ docker run -p 6379:6379 redis:7
    1:C 27 Feb 2024 03:53:38.154 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
    1:C 27 Feb 2024 03:53:38.154 * Redis version=7.2.4, bits=64, commit=00000000, modified=0, pid=1, just started
    1:C 27 Feb 2024 03:53:38.154 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf

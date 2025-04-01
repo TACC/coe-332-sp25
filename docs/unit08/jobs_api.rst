@@ -185,7 +185,7 @@ in this directory to help with containerization and orchestration.
 
 .. code-block:: console
   
-  [user-vm] $ ls 
+  [coe332-vm] $ ls 
   Dockerfile  api.py  docker-compose.yaml  jobs.py  requirements.txt  worker.py
 
 
