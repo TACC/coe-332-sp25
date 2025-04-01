@@ -34,6 +34,7 @@ provide a web-accessible interface to their system.
    homework/homework05
    homework/midterm
    homework/homework06
+   homework/homework07
    homework/final
 
 
