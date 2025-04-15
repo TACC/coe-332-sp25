@@ -100,7 +100,7 @@ In this case, our description is contained in a file, so we use the ``-f`` flag.
 
 .. code-block:: console
 
-  [user-vm]$ kubectl apply -f pod-basic.yml
+  [coe332-vm]$ kubectl apply -f pod-basic.yml
 
 If all went well and k8s accepted your request, you should see an output like this:
 
@@ -142,7 +142,7 @@ is "pods":
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME    READY   STATUS    RESTARTS   AGE
    hello   1/1     Running   0          99s
 
@@ -159,7 +159,7 @@ a single pod
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods hello
+   [coe332-vm]$ kubectl get pods hello
    NAME    READY   STATUS    RESTARTS   AGE
    hello   1/1     Running   0          3m1s
 
@@ -167,7 +167,7 @@ The ``-o wide`` flag can be used to get more information:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods hello -o wide
+   [coe332-vm]$ kubectl get pods hello -o wide
    NAME    READY   STATUS    RESTARTS   AGE     IP              NODE                  NOMINATED NODE   READINESS GATES
    hello   1/1     Running   0          4m56s   10.233.97.195   coe332-kubernetes-4   <none>           <none>
 
@@ -177,7 +177,7 @@ a pod that has failed:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl describe pods hello 
+   [coe332-vm]$ kubectl describe pods hello 
    Name:             hello
    Namespace:        USERNAME
    Priority:         0
@@ -237,7 +237,7 @@ We can use ``kubectl logs <pod_name>`` command to get the logs associated with a
 
 .. code-block:: console
 
-   [user-vm]$ kubectl logs hello
+   [coe332-vm]$ kubectl logs hello
    Hello, Kubernetes!
 
 Note that the ``logs`` command does not include the resource name ("pods") because it only can be applied to pods. The
@@ -283,14 +283,14 @@ Let's create this pod using ``kubectl apply``:
 
 .. code-block:: console
 
-  [user-vm]$ kubectl apply -f pod-labeled.yml
+  [coe332-vm]$ kubectl apply -f pod-labeled.yml
   pod/hello-labeled created
 
 Now when we list our pods, we should see it
 
 .. code-block::
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME            READY   STATUS    RESTARTS   AGE
    hello           1/1     Running   0          22m
    hello-labeled   1/1     Running   0          22s
@@ -306,7 +306,7 @@ For instance, we can search for pods with the version 1.0 label like so:
 
 .. code-block:: console
 
-  [user-vm]$ kubectl get pods  --selector "version=1.0"
+   [coe332-vm]$ kubectl get pods  --selector "version=1.0"
    NAME          READY   STATUS    RESTARTS   AGE
    hello-label   1/1     Running   0          4m58s
 
@@ -323,7 +323,7 @@ pod named `hello`, try:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl exec -it hello -- /bin/bash
+   [coe332-vm]$ kubectl exec -it hello -- /bin/bash
    root@hello:/#
 
 From there, type ``logout`` or press ``Ctrl+D`` to return to the command line.
@@ -337,7 +337,7 @@ Finally, we can delete a running pod using ``kubectl delete pods <pod_name>``:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl delete pods hello
+   [coe332-vm]$ kubectl delete pods hello
    pod "hello" deleted
 
 The pod (and the container running inside the pod) has been removed from the k8s cluster. Another safe way to delete a pod
@@ -347,7 +347,7 @@ is to pass ``kubectl delete`` the YAML file describing the pod. In this case, yo
 
 .. code-block:: console
 
-   [user-vm]$ kubectl delete -f pod-labeled.yml 
+   [coe332-vm]$ kubectl delete -f pod-labeled.yml 
    pod "hello-labeled" deleted
 
 We should now be able to see that our pods have all been deleted. It is important to periodically clean up and remove 
@@ -356,7 +356,7 @@ because it is a shared resource among the whole class.
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    No resources found in USERNAME namespace.
 
 

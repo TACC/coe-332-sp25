@@ -28,13 +28,13 @@ Recall that we can learn the private network IP address for a specific pod with 
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods <pod_name> -o wide
+   [coe332-vm]$ kubectl get pods <pod_name> -o wide
 
 For example:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods hello-deployment-9794b4889-mk6qw -o wide
+   [coe332-vm]$ kubectl get pods hello-deployment-9794b4889-mk6qw -o wide
    NAME                                    READY   STATUS        RESTARTS       AGE   IP              NODE            NOMINATED NODE   READINESS GATES
    hello-deployment-6949f8ddbc-znx75       1/1     Running       21 (31m ago)   21h   10.233.116.45   kube-worker-1   <none>           <none>
 
@@ -95,7 +95,7 @@ Next create the hello-flask deployment using ``kubectl apply``
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f deployment-hello-flask.yml
+   [coe332-vm]$ kubectl apply -f deployment-hello-flask.yml
    deployment.apps/deployment-hello-flask configured
 
 With our deployment created, we should see a new pod.
@@ -111,7 +111,7 @@ SOLUTION
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                                READY   STATUS    RESTARTS       AGE
    hello-deployment-6949f8ddbc-znx75   1/1     Running   21 (36m ago)   21h
    hello-label                         1/1     Running   21 (57m ago)   21h
@@ -119,7 +119,7 @@ SOLUTION
    hello-flask-7bf64cc577-l7f52        1/1     Running   0              2m34s
 
 
-   [user-vm]$ kubectl get pods helloflask-86d4c7d8db-2rkg5 -o wide
+   [coe332-vm]$ kubectl get pods helloflask-86d4c7d8db-2rkg5 -o wide
    NAME                          READY   STATUS    RESTARTS   AGE     IP              NODE            NOMINATED NODE   READINESS GATES
    hello-flask-7bf64cc577-l7f52  1/1     Running   0          3m46s   10.233.116.59   kube-worker-1   <none>           <none>
 
@@ -131,7 +131,7 @@ we will either find that it hangs indefinitely or possible gives an error:
 
 .. code-block:: console
 
-   [user-vm]$ curl 10.233.116.59:5000/
+   [coe332-vm]$ curl 10.233.116.59:5000/
    curl: (7) Failed connect to 10.233.116.59:5000; Network is unreachable
 
 This is because the 10.233.*.* private k8s network is not available from the outside.
@@ -247,14 +247,14 @@ We create this service using the ``kubectl apply`` command, as usual:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f hello-flask-service.yml
+   [coe332-vm]$ kubectl apply -f hello-flask-service.yml
    service/hello-service configured
 
 We can list the services:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get services
+   [coe332-vm]$ kubectl get services
    NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
    hello-service   ClusterIP   10.233.12.76   <none>        5000/TCP   11s
 
@@ -264,7 +264,7 @@ exec into our debug deployment pod first.
 
 .. code-block:: console
 
-  [user-vm]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-xzhzq -- /bin/bash
+  [coe332-vm]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-xzhzq -- /bin/bash
 
   # from inside the container ---
   root@py-debug-deployment-5cc8cdd65f-xzhzq:/ $ curl 10.233.12.76:5000/
@@ -276,18 +276,18 @@ automatically route requests to the new pod. Let's try it.
 .. code-block:: bash
 
    # remove the pod ---
-   [user-vm]$ kubectl delete pods hello-flask-86d4c7d8db-2rkg5
+   [coe332-vm]$ kubectl delete pods hello-flask-86d4c7d8db-2rkg5
    pod "helloflask-86d4c7d8db-2rkg5" deleted
 
    # see that a new one was created ---
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                                    READY   STATUS    RESTARTS   AGE
    hello-deployment-9794b4889-w4jlq        1/1     Running   2          175m
    hello-pvc-deployment-6dbbfdc4b4-sxk78   1/1     Running   233        9d
    hello-flask-86d4c7d8db-vbn4g             1/1     Running   0          62s
 
    # it has a new IP ---
-   [user-vm]$ kubectl get pods helloflask-86d4c7d8db-vbn4g -o wide
+   [coe332-vm]$ kubectl get pods helloflask-86d4c7d8db-vbn4g -o wide
    NAME                          READY   STATUS    RESTARTS   AGE    IP            NODE   NOMINATED NODE   READINESS GATES
    hello-flask-86d4c7d8db-vbn4g   1/1     Running   0          112s   10.233.12.96   c05    <none>           <none>
    # Yep, 10.233.12.96 -- that's different; the first pod had IP 10.233.116.59
@@ -387,7 +387,7 @@ As usual, create the NodePort using ``kubectl``:
 
 .. code-block:: console 
 
-   [user-vm]$ kubectl apply -f service-nodeport-hello-flask.yml
+   [coe332-vm]$ kubectl apply -f service-nodeport-hello-flask.yml
    service/hello-flask-nodeport-service created
 
 Change the command to reference the file name you used. 
@@ -395,7 +395,7 @@ Check that the service was created successfully and determine the port that was 
 
 .. code-block:: console 
 
-   [user-vm]$ kubectl get services
+   [coe332-vm]$ kubectl get services
    NAME                           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
    hello-flask-nodeport-service   NodePort    10.233.1.87    <none>        5000:32627/TCP   24s
    hello-flask-service            ClusterIP   10.233.58.60   <none>        5000/TCP         4d10h
@@ -409,7 +409,7 @@ to exercise your Flask API from the kube-access VM:
 
 .. code-block:: console
 
-    [user-vm]$ curl coe332.tacc.cloud:32627/
+    [coe332-vm]$ curl coe332.tacc.cloud:32627/
     Hello, world!
 
 Change the port (``32627``) to the port associated with your nodeport service, and the URL path
@@ -466,14 +466,14 @@ Create the Ingress object:
 
 .. code-block:: console 
 
-    [user-vm]$ kubectl apply -f ingress-hello-flask.yml
+    [coe332-vm]$ kubectl apply -f ingress-hello-flask.yml
 
 
 Double check that the object was successfully created:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get ingress
+   [coe332-vm]$ kubectl get ingress
    NAME                  CLASS    HOSTS                              ADDRESS   PORTS   AGE
    hello-flask-ingress   <none>   username-flask.coe332.tacc.cloud             80      102s
 

@@ -83,8 +83,8 @@ However, if we create this new deployment and then list pods we see something cu
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f deployment-pvc.yml
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl apply -f deployment-pvc.yml
+   [coe332-vm]$ kubectl get pods
    NAME                                    READY   STATUS    RESTARTS   AGE
    hello-deployment-6949f8ddbc-d6rqb       1/1     Running   0          3m13s
    hello-label                             1/1     Running   0          39m
@@ -97,7 +97,7 @@ We can ask k8s to describe that pod to get more details:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl describe pods hello-pvc-deployment-7c5f879cd8-zpgq5
+   [coe332-vm]$ kubectl describe pods hello-pvc-deployment-7c5f879cd8-zpgq5
    Name:           hello-pvc-deployment-7c5f879cd8-zpgq5
    Namespace:      USERNAME
    Priority:       0
@@ -161,14 +161,14 @@ We create this pvc object with the usual ``kubectl apply`` command:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f hello-pvc.yml
+   [coe332-vm]$ kubectl apply -f hello-pvc.yml
    persistentvolumeclaim/hello-USERNAME-data created
 
 Great, with the pvc created, let's check back on our pods:
 
 .. code-block:: console
 
-  [user-vm]$ kubectl get pods
+  [coe332-vm]$ kubectl get pods
    NAME                                    READY   STATUS        RESTARTS   AGE
    hello-deployment-9794b4889-mk6qw        1/1     Running       46         46h
    hello-deployment-9794b4889-sx6jc        1/1     Running       46         46h
@@ -200,13 +200,13 @@ In general, one can run a command in a pod using the following:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl exec <options> <pod_name> -- <command>
+   [coe332-vm]$ kubectl exec <options> <pod_name> -- <command>
 
 To run a shell, we will use:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl exec -it <pod_name> -- /bin/bash
+   [coe332-vm]$ kubectl exec -it <pod_name> -- /bin/bash
 
 The ``-it`` flags might look familiar from Docker -- they allow us to "attach" our standard input and output to the
 command we run in the container. The command we want to run is ``/bin/bash`` for a shell.
@@ -215,7 +215,7 @@ Let's exec a shell in our "hello-pvc-deployment-ff5759b64-sc7dk" pod and look ar
 
 .. code-block:: console
 
-   [user-vm]$ kubectl exec -it  hello-pvc-deployment-5b7d9775cb-xspn7 -- /bin/bash
+   [coe332-vm]$ kubectl exec -it  hello-pvc-deployment-5b7d9775cb-xspn7 -- /bin/bash
    root@hello-pvc-deployment-5b7d9775cb-xspn7:/#
 
 Notice how the shell prompt changes after we issue the ``exec`` command -- we are now "inside" the container, and our
@@ -289,10 +289,10 @@ following:
 
 .. code-block:: bash
 
-   [user-vm]$ kubectl delete pods hello-pvc-deployment-5b7d9775cb-xspn7
+   [coe332-vm]$ kubectl delete pods hello-pvc-deployment-5b7d9775cb-xspn7
    pod "hello-pvc-deployment-5b7d9775cb-xspn7" deleted
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                                    READY   STATUS              RESTARTS   AGE
    hello-deployment-9794b4889-mk6qw        1/1     Running             47         47h
    hello-deployment-9794b4889-sx6jc        1/1     Running             47         47h
@@ -302,7 +302,7 @@ following:
    # wild -- a new hello-pvc-deployment pod is getting created automatically!
 
    # let's exec into the new pod and check it out!
-   [user-vm]$ kubectl exec -it hello-pvc-deployment-5b7d9775cb-7nfhv -- /bin/bash
+   [coe332-vm]$ kubectl exec -it hello-pvc-deployment-5b7d9775cb-7nfhv -- /bin/bash
 
    [container] $ cat /data/out.txt
    Hello, Kubernetes!

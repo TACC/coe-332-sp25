@@ -100,7 +100,7 @@ We create a deployment in k8s using the ``apply`` command, just like when creati
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f deployment-basic.yml
+   [coe332-vm]$ kubectl apply -f deployment-basic.yml
 
 If all went well, k8s response should look like:
 
@@ -112,7 +112,7 @@ We can list deployments, just like we listed pods:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get deployments
+   [coe332-vm]$ kubectl get deployments
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    hello-deployment   1/1     1            1           1m
 
@@ -120,7 +120,7 @@ We can also list pods, and here we see that k8s has created a pod for our deploy
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                               READY   STATUS    RESTARTS   AGE
    hello                              1/1     Running   0          10m
    hello-deployment-55c5b77fc-hqjwx   1/1     Running   0          50s
@@ -143,7 +143,7 @@ To delete a pod, we use the ``kubectl delete pods <pod_name>`` command. Let's fi
 
 .. code-block:: console
 
-   [user-vm]$ kubectl delete pods hello-deployment-55c5b77fc-hqjwx
+   [coe332-vm]$ kubectl delete pods hello-deployment-55c5b77fc-hqjwx
 
 It might take a little while for the response to come back, but when it does you should see:
 
@@ -155,7 +155,7 @@ If we then immediately list the pods, we see something interesting:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                               READY   STATUS    RESTARTS   AGE
    hello                              1/1     Running   0          13m
    hello-deployment-55c5b77fc-76lzz   1/1     Running   0          39s
@@ -170,10 +170,10 @@ What do you expect to happen if we delete the original "hello" pod? Will k8s sta
 
 .. code-block:: console
 
-   [user-vm]$ kubectl delete pods hello
+   [coe332-vm]$ kubectl delete pods hello
    pod "hello" deleted
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                               READY   STATUS    RESTARTS   AGE
    hello-deployment-55c5b77fc-76lzz   1/1     Running   0          19m
    hello-label                        1/1     Running   0          26m
@@ -220,14 +220,14 @@ Apply the changes with:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl apply -f deployment-basic.yml
+   [coe332-vm]$ kubectl apply -f deployment-basic.yml
    deployment.apps/hello-deployment configured
 
 When we list pods, we see k8s has quickly implemented our requested change:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    NAME                               READY   STATUS    RESTARTS   AGE
    hello-deployment-55c5b77fc-76lzz   1/1     Running   0          22m
    hello-deployment-55c5b77fc-nsx6w   1/1     Running   0          9s

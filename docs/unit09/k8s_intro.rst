@@ -175,18 +175,18 @@ commands (replacing USERNAME with your username):
 
 .. code-block:: console
 
-   [user-vm]$ sudo curl -LO "https://dl.k8s.io/release/v1.28.5/bin/linux/amd64/kubectl"
-   [user-vm]$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-   [user-vm]$ scp -r USERNAME@student-login.tacc.utexas.edu:~/.kube ./
+   [coe332-vm]$ sudo curl -LO "https://dl.k8s.io/release/v1.28.5/bin/linux/amd64/kubectl"
+   [coe332-vm]$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+   [coe332-vm]$ scp -r USERNAME@student-login.tacc.utexas.edu:~/.kube ./
 
 To confirm whether it worked, try the following commands:
 
 .. code-block:: console
 
-   [user-vm]$ kubectl version --client
+   [coe332-vm]$ kubectl version --client
    Client Version: v1.28.5
    Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-   [user-vm]$ kubectl get pods
+   [coe332-vm]$ kubectl get pods
    No resources found in USERNAME namespace.
 
 
