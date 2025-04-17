@@ -248,22 +248,22 @@ Consider the following workflow, located in ``.github/workflows/push-to-registry
           uses: actions/checkout@v3
 
         - name: Log in to Docker Hub
-          uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+          uses: docker/login-action@v3
           with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_PASSWORD }} 
 
         - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v1 
+          uses: docker/setup-buildx-action@v3
 
         - name: Extract metadata (tags, labels) for Docker
           id: meta-api
-          uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+          uses: docker/metadata-action@v5
           with:
             images: wjallen/mldata-api 
 
         - name: Build and push Docker image
-          uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+          uses: docker/build-push-action@v5
           with:
             context: .
             push: true
@@ -273,12 +273,12 @@ Consider the following workflow, located in ``.github/workflows/push-to-registry
 
         - name: Extract metadata (tags, labels) for Docker
           id: meta-wrk
-          uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+          uses: docker/metadata-action@v5
           with:
             images: wjallen/mldata-wrk 
             
         - name: Build and push Docker image
-          uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+          uses: docker/build-push-action@v5
           with:
             context: .
             push: true
