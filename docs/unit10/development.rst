@@ -179,11 +179,12 @@ EXERCISE
 
 Write a Makefile that, at a minimum:
 
-1. Builds all necessary images for your app from Dockerfile(s)
-2. Starts up new containers / services
-3. Removes running containers in your namespace (be careful!)
-4. Runs your unit tests
-5. Cycles through steps 2-5 listed above **in one command**
+1. Removes running containers in your namespace
+2. Builds and runs new containers / services
+3. Runs a unit test or a curl command against flask
+4. Cycles through steps 1-3 listed above in one command
+
+
 
 .. note:: 
 
