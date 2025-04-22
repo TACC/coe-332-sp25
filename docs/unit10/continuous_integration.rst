@@ -133,46 +133,36 @@ to perform our integration testing with the following contents:
 
    name: Integration tests with pytest
    on: [push]
-
+   
    jobs:
      integration-tests-with-pytest:
        runs-on: ubuntu-latest
-
+   
        steps:
        - name: Check out repo
          uses: actions/checkout@v3
-
-       - name: Create docker bridge network
-         run: docker network create API-DB-WRK
-
-       - name: Set up a database
-         run: |
-           mkdir ./data/
-           docker run --name redis-db --network API-DB-WRK -p 6379:6379 -d -v ${PWD}/data:/data redis:7 --save 1 1
-
-       - name: Build and run the API and worker
-         run: |
-           docker build -f Dockerfile -t image:test .
-           docker run --name api-test --network API-DB-WRK -p 5000:5000 -d --env REDIS_IP=${RIP} image:test python3 api.py
-           docker run --name wrk-test --network API-DB-WRK -d --env REDIS_IP=${RIP} image:test python3 worker.py
-         env:
-           RIP: redis-db
-
+   
+       - name: Start containers
+         run: docker compose up --build -d
+   
+       - name: Set up Python 
+         uses: actions/setup-python@v4
+         with:
+           python-version: "3.12"
+   
+       - name: Install dependencies
+         run: pip3 install pytest==7.4.* requests==2.*
+   
        - name: Run pytest
-         run: docker run --network API-DB-WRK -d --env REDIS_IP=${RIP} image:test pytest
-
-       - name: Stop images
-         run: |
-           docker stop wrk-test && docker rm -f wrk-test
-           docker stop api-test && docker rm -f api-test
-           docker stop redis-db && docker rm -f redis-db
-           docker network rm API-DB-WRK
-
+         run: pytest 
+   
+       - name: Stop images and clean up
+         run: docker compose down
 
 
 The workflow above runs our integration tests, and it is triggered on every push
 (``on: [push]``). This particular workflow will run in an ``ubuntu-latest`` VM,
-and it has 10 total ``steps``.
+and it has 6 total ``steps``.
 
 Some steps contain a ``uses`` keyword, which utilizes a pre-canned action from the
 catalog of GitHub Actions. For example, the pre-canned actions might be used to
@@ -184,7 +174,7 @@ run to stage the data, set up containers, and run pytest.
 QUESTION
 ~~~~~~~~
 
-In the above example, Python v3.9 and external libraries (pytest, requests) are
+In the above example, Python v3.12 and external libraries (pytest, requests) are
 installed in different steps. Can this be done in one step? Is there a better way
 to do it?
 
@@ -231,61 +221,47 @@ Consider the following workflow, located in ``.github/workflows/push-to-registry
 .. code-block:: yaml
    :linenos:
 
-   name: Publish Docker image
 
+   name: Publish Docker image
+   
    on:
      push:
        tags:
          - '*'
-
+   
    jobs:
      push-to-registry:
        name: Push Docker image to Docker Hub
        runs-on: ubuntu-latest
-
+   
        steps:
         - name: Check out the repo
           uses: actions/checkout@v3
-
+   
         - name: Log in to Docker Hub
           uses: docker/login-action@v3
           with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_PASSWORD }} 
-
+   
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3
-
+   
         - name: Extract metadata (tags, labels) for Docker
-          id: meta-api
+          id: meta-data
           uses: docker/metadata-action@v5
           with:
-            images: wjallen/mldata-api 
-
+            images: wjallen/demo-app 
+   
         - name: Build and push Docker image
           uses: docker/build-push-action@v5
           with:
             context: .
             push: true
-            file: ./docker/Dockerfile.api
-            tags: ${{ steps.meta-api.outputs.tags }}
-            labels: ${{ steps.meta-api.outputs.labels }} 
-
-        - name: Extract metadata (tags, labels) for Docker
-          id: meta-wrk
-          uses: docker/metadata-action@v5
-          with:
-            images: wjallen/mldata-wrk 
-            
-        - name: Build and push Docker image
-          uses: docker/build-push-action@v5
-          with:
-            context: .
-            push: true
-            file: ./docker/Dockerfile.wrk
-            tags: ${{ steps.meta-wrk.outputs.tags }}
-            labels: ${{ steps.meta-wrk.outputs.labels }}
-
+            file: ./Dockerfile
+            tags: ${{ steps.meta-data.outputs.tags }}
+            labels: ${{ steps.meta-data.outputs.labels }} 
+   
 
 This workflow waits is triggered when a new tag is pushed (``tag: - '*'``). As
 in the previous action, this one checks out the code and stages the sample data.
@@ -301,8 +277,7 @@ New Repository Secret within the project repository.
 
 
 Finally, this workflow extracts the tag from the environment and builds / pushes
-the API container, then builds / pushes the worker container both using actions
-from the GitHub Actions catalogue.
+the container image using actions from the GitHub Actions catalogue.
 
 .. tip::
 
